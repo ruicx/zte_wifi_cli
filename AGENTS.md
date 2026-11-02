@@ -8,11 +8,6 @@ the source of truth.
 
 ## Non-negotiables
 
-- **Follow `~/.codex/AGENTS.md`** for coding style: complete type annotations
-  (modern generics), NumPy-style docstrings on every module/class/function,
-  English comments, small pure functions, no global mutable state.
-- **`uv run ty check` must pass with zero errors** before any change counts
-  as done.
 - **The HTTP client must always bypass system proxies**
   (`requests.Session(trust_env=False)` in `client.py`). A local proxy
   (127.0.0.1:28618) usually runs on this machine and will intercept device
@@ -23,6 +18,26 @@ the source of truth.
 - **`switchWiFiModule` semantics are inverted**: `SwitchOption="0"` turns
   WiFi ON, `"1"` turns it OFF (verified live; do **not** "fix" this without
   a live round-trip test).
+
+## Coding style
+
+- **Type annotations**: every function and method fully annotated, using
+  modern builtin generics (`list[T]`, `dict[str, Any]`, `X | Y`).
+- **Static typing**: `uv run ty check` must pass with zero errors before any
+  change counts as done.
+- **Docstrings**: NumPy style on every module, class, and function (public
+  and private), with `Parameters`, `Returns`, `Raises`, `Notes` sections
+  where applicable.
+- **Comments** are written in English.
+- **Structure**: favor small pure helper functions and explicit dataclasses;
+  never introduce global mutable state; no kitchen-sink modules.
+- **Simplicity first**: minimum code that solves the problem — no features
+  beyond what was asked, no speculative abstractions or configurability, no
+  error handling for impossible scenarios.
+- **Surgical changes**: touch only what the task requires; match the existing
+  style; clean up only what your own changes orphaned.
+- **Be honest**: if the approved approach hits a technical obstacle, stop and
+  surface it to the user instead of silently redesigning.
 
 ## Device quirks (learned from live testing)
 
@@ -65,5 +80,6 @@ only run it when the user asks.
 
 ## Commits
 
-Subjects as `<Type>: <summary>` with `Feat` / `BugFix` / `Refactor` / `Doc`,
-blank line, then a numbered list of changes (see `~/.codex/AGENTS.md`).
+Subjects as `<Type>: <summary>` where `<Type>` is one of `Feat` / `BugFix` /
+`Refactor` / `Doc`, separated from the body by a blank line, then a numbered
+list detailing the changes.
