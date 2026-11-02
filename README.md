@@ -81,6 +81,7 @@ xcopy /E /I /Y skill\zte-wifi "%USERPROFILE%\.zcode\skills\zte-wifi"
 ## Development
 
 ```console
+uv run ruff check      # linting (must pass)
 uv run ty check        # static type analysis (must pass)
 ```
 

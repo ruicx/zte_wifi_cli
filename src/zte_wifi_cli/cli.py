@@ -10,7 +10,7 @@ import functools
 import json
 import time
 from collections.abc import Callable
-from typing import Any, NoReturn, TypeVar
+from typing import Any, NoReturn
 
 import click
 
@@ -87,9 +87,6 @@ PPP_STATUS_LABELS: dict[str, str] = {
     "disconnect": "已断开",
 }
 
-T = TypeVar("T")
-
-
 #
 # Error handling and shared plumbing
 #
@@ -109,7 +106,7 @@ def _fail(message: str, exit_code: int) -> NoReturn:
     raise SystemExit(exit_code)
 
 
-def handle_device_errors(fn: Callable[..., T]) -> Callable[..., T]:
+def handle_device_errors[T](fn: Callable[..., T]) -> Callable[..., T]:
     """Decorator mapping ``ZteError`` subclasses onto CLI exit codes.
 
     Parameters
@@ -414,7 +411,7 @@ def _set_wifi(host: str, as_json: bool, option: str, action: str, confirm_text: 
     client = _build_client(host)
     client.set("switchWiFiModule", {"SwitchOption": option})
     want_on = option == WIFI_OPTION_ON
-    settled = _poll_until(
+    _poll_until(
         lambda: _wifi_is_on(client.get(WIFI_STATE_CMDS)) == want_on,
         WIFI_SETTLE_TIMEOUT_S,
     )

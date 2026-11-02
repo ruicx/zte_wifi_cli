@@ -76,6 +76,7 @@ xcopy /E /I /Y skill\zte-wifi "%USERPROFILE%\.zcode\skills\zte-wifi"
 ## 开发
 
 ```console
+uv run ruff check      # 代码检查（必须通过）
 uv run ty check        # 静态类型检查（必须通过）
 ```
 

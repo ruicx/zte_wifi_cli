@@ -23,8 +23,9 @@ the source of truth.
 
 - **Type annotations**: every function and method fully annotated, using
   modern builtin generics (`list[T]`, `dict[str, Any]`, `X | Y`).
-- **Static typing**: `uv run ty check` must pass with zero errors before any
-  change counts as done.
+- **Static checks**: `uv run ruff check` (linting) and `uv run ty check`
+  (type analysis) must both pass with zero errors before any change counts
+  as done.
 - **Docstrings**: NumPy style on every module, class, and function (public
   and private), with `Parameters`, `Returns`, `Raises`, `Notes` sections
   where applicable.
