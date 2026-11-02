@@ -60,9 +60,7 @@ the source of truth.
   constants module.
 - User-facing CLI output stays in Chinese; `--json` output keys stay raw
   device field names.
-- The agent skill source is `skill/zte-wifi/SKILL.md` (English). After
-  editing it, copy it to `~/.zcode/skills/zte-wifi/SKILL.md` — the installed
-  copy is what sessions load; the repo copy is the source of truth.
+- The agent skill source is `skill/zte-wifi/SKILL.md` (English).
 
 ## Verification
 
