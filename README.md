@@ -20,6 +20,22 @@ uv sync
 uv run zte auth        # store the web console password in Windows Credential Manager
 ```
 
+### Storing the password
+
+`zte auth` prompts for the web console password twice (hidden input) and
+saves it into **Windows Credential Manager** as a generic credential under
+`zte-wifi-cli` / `web-admin`. Notes:
+
+- The prompt reads from the console directly — it cannot be fed via a pipe
+  or script; type it interactively.
+- To verify it is there: **控制面板 → 用户账户 → 凭据管理器 → Windows 凭据
+  → 普通凭据** — you will see `zte-wifi-cli/web-admin` (Windows hides the
+  value; it can only be removed there, not displayed).
+- To change the password (e.g. after modifying it in the web console): run
+  `uv run zte auth` again — it overwrites the stored entry.
+- To remove it: delete the entry in Credential Manager, or
+  `uv run python -c "import keyring; keyring.delete_password('zte-wifi-cli', 'web-admin')"`.
+
 ## Usage
 
 ```console
