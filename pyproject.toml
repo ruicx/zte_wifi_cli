@@ -1,0 +1,39 @@
+[project]
+name = "zte-wifi-cli"
+version = "0.1.0"
+description = "Command-line control for a ZTE portable WiFi hotspot (U30Air) over its web API"
+readme = "README.md"
+authors = [
+    { name = "Ruicheng", email = "x_rc@qq.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "click>=8.1",
+    "keyring>=24",
+    "requests>=2.31",
+]
+
+[project.scripts]
+zte = "zte_wifi_cli.cli:main"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.17.1",
+    "ty>=0.0.89",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.0,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.ruff]
+target-version = "py312"
+
+[tool.ruff.lint]
+extend-ignore = ["F401", "F541"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.ty.environment]
+extra-paths = ["typings"]
