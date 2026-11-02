@@ -25,7 +25,8 @@ the source of truth.
   modern builtin generics (`list[T]`, `dict[str, Any]`, `X | Y`).
 - **Static checks**: `uv run ruff check` (linting) and `uv run ty check`
   (type analysis) must both pass with zero errors before any change counts
-  as done.
+  as done; the pre-commit hooks (`.pre-commit-config.yaml`) enforce the same
+  on every commit.
 - **Docstrings**: NumPy style on every module, class, and function (public
   and private), with `Parameters`, `Returns`, `Raises`, `Notes` sections
   where applicable.

@@ -81,8 +81,9 @@ xcopy /E /I /Y skill\zte-wifi "%USERPROFILE%\.zcode\skills\zte-wifi"
 ## Development
 
 ```console
-uv run ruff check      # linting (must pass)
-uv run ty check        # static type analysis (must pass)
+uv run pre-commit install   # one-time: enable git hooks (ruff + ty + hygiene checks)
+uv run ruff check           # linting (must pass)
+uv run ty check             # static type analysis (must pass)
 ```
 
 Project layout: `src/zte_wifi_cli/` — `client.py` (protocol), `cli.py`

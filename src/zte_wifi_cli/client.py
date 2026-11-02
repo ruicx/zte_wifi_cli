@@ -96,7 +96,9 @@ class ZteClient:
         )
         result = str(response.get("result", ""))
         if result != "0":
-            message = _LOGIN_ERROR_MESSAGES.get(result, f"login failed (result={result})")
+            message = _LOGIN_ERROR_MESSAGES.get(
+                result, f"login failed (result={result})"
+            )
             raise AuthError(message)
         self._logged_in = True
 
@@ -126,7 +128,9 @@ class ZteClient:
         params = {"isTest": "false", "multi_data": "1", "cmd": ",".join(cmds)}
         return self._get_json(params)
 
-    def set(self, goform_id: str, params: Mapping[str, str] | None = None) -> dict[str, Any]:
+    def set(
+        self, goform_id: str, params: Mapping[str, str] | None = None
+    ) -> dict[str, Any]:
         """Execute a write command with a fresh ``AD`` signature.
 
         Parameters

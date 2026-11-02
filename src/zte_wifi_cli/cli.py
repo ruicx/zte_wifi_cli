@@ -390,7 +390,9 @@ def wifi_status(host: str, as_json: bool) -> None:
     _emit(False, state, "\n".join(lines))
 
 
-def _set_wifi(host: str, as_json: bool, option: str, action: str, confirm_text: str) -> None:
+def _set_wifi(
+    host: str, as_json: bool, option: str, action: str, confirm_text: str
+) -> None:
     """Shared implementation of ``zte wifi on`` / ``zte wifi off``.
 
     Parameters
@@ -426,7 +428,11 @@ def _set_wifi(host: str, as_json: bool, option: str, action: str, confirm_text: 
     elif payload["result"] == "ok":
         _emit(False, payload, f"WiFi 已{'开启' if want_on else '关闭'}。")
     else:
-        _emit(False, payload, "命令已发送，但状态未在预期时间内变化，请用 `zte wifi status` 确认。")
+        _emit(
+            False,
+            payload,
+            "命令已发送，但状态未在预期时间内变化，请用 `zte wifi status` 确认。",
+        )
     if payload["result"] != "ok":
         raise SystemExit(1)
 
@@ -496,7 +502,9 @@ def sim_switch(slot: int, host: str, as_json: bool) -> None:
             raise DeviceError(f"切卡失败 (switch_sim_result={SIM_RESULT_FAIL})")
         return False
 
-    done = _poll_until(switched, SIM_SWITCH_TIMEOUT_S, SIM_POLL_INTERVAL_S, progress=not as_json)
+    done = _poll_until(
+        switched, SIM_SWITCH_TIMEOUT_S, SIM_POLL_INTERVAL_S, progress=not as_json
+    )
     if not as_json:
         click.echo()  # finish the progress dots line
     final = client.get(("sim_slot", "network_provider_fullname", "network_type"))
@@ -519,7 +527,11 @@ def sim_switch(slot: int, host: str, as_json: bool) -> None:
             f"{final.get('network_provider_fullname', '-')} ({final.get('network_type', '-')})",
         )
     else:
-        _emit(False, payload, f"切卡未在 {SIM_SWITCH_TIMEOUT_S:.0f}s 内完成，请用 `zte sim status` 确认。")
+        _emit(
+            False,
+            payload,
+            f"切卡未在 {SIM_SWITCH_TIMEOUT_S:.0f}s 内完成，请用 `zte sim status` 确认。",
+        )
     if outcome != "ok":
         raise SystemExit(1)
 
@@ -555,7 +567,10 @@ def net_mode(mode: str, host: str, as_json: bool) -> None:
     client = _build_client(host)
     client.set("SET_BEARER_PREFERENCE", {"BearerPreference": value})
     settled = _poll_until(
-        lambda: str(client.get(("network_net_select",)).get("network_net_select", "")) == value,
+        lambda: (
+            str(client.get(("network_net_select",)).get("network_net_select", ""))
+            == value
+        ),
         NET_MODE_SETTLE_TIMEOUT_S,
     )
     current = str(client.get(("network_net_select",)).get("network_net_select", ""))
@@ -571,7 +586,11 @@ def net_mode(mode: str, host: str, as_json: bool) -> None:
     elif settled:
         _emit(False, payload, f"网络模式已切换为 {label}。")
     else:
-        _emit(False, payload, f"命令已发送，当前模式仍为 {NET_MODE_LABELS.get(current, current)}，可能仍在切换中。")
+        _emit(
+            False,
+            payload,
+            f"命令已发送，当前模式仍为 {NET_MODE_LABELS.get(current, current)}，可能仍在切换中。",
+        )
     if not settled:
         raise SystemExit(1)
 

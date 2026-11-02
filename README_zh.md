@@ -76,8 +76,9 @@ xcopy /E /I /Y skill\zte-wifi "%USERPROFILE%\.zcode\skills\zte-wifi"
 ## 开发
 
 ```console
-uv run ruff check      # 代码检查（必须通过）
-uv run ty check        # 静态类型检查（必须通过）
+uv run pre-commit install   # 一次性：启用 git 钩子（ruff + ty + 卫生检查）
+uv run ruff check           # 代码检查（必须通过）
+uv run ty check             # 静态类型检查（必须通过）
 ```
 
 项目结构：`src/zte_wifi_cli/` —— `client.py`（协议）、`cli.py`（click
